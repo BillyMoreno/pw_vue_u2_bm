@@ -1,4 +1,4 @@
-# pw_vue_u2_bm
+# pw_vue_u2_db
 
 ## Project setup
 ```
