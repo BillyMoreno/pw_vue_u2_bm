@@ -1,20 +1,22 @@
 <template>
   <div>
     <!--<ContadorView/>-->
-    <DirectivasView/>
+    <!--<DirectivasView/>-->
+    <PreguntaView/>
   </div>
 </template>
 
 <script>
-import ContadorView from './views/ContadorView.vue';
-import DirectivasView from './views/DirectivasView.vue';
-
+import ContadorView from './view/ContadorView.vue';
+import DirectivasView from './view/DirectivasView.vue';
+import PreguntaView from './view/PreguntaView.vue';
 
 export default {
   name: 'App',
   components: {
     ContadorView,
     DirectivasView,
+    PreguntaView,
   }
 }
 </script>

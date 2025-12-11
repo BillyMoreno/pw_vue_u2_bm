@@ -1,70 +1,77 @@
 <template>
   <div>
-    <h1>{{ tit }}</h1>
-    <p>{{ 1 + 1 }} <sup>2</sup> = {{ obtenerCuadrado() }} </p>
-    <p>{{ numero }} <sup>2</sup> = {{ calculaCuadrado }} </p>
-    <p>{{ numero }} <sup>2</sup> = {{ obtenerCubo() }} </p>
-    <p>{{ numero }} <sup>2</sup> = {{ calcularCubo }} </p>
-
-
+    <h1>{{ title }}</h1>
+    <p>{{ numero }} <sup>2</sup> = {{ obtenerCuadrado() }}</p>
+    <p>{{ numero }} <sup>2</sup> = {{ calculaCuadrado }}</p>
+    <p>{{ numero }} <sup>2</sup> = {{ calculaCuadrado }}</p> <!-- Repetido varias veces para observar el comportamiento de la propiedad computada -->
+    <p>{{ numero }} <sup>3</sup> = {{ calculaCubo }}</p>
     <div>
-      <button @:click="incremetar()">+1</button>
-      <button v-on:click="decrementar()">-1</button>
-      <button v-show="mostrar">Prueba</button>
+      <button v-on:click="incrementar">+ 1</button>
+      <button @:click="decrementar">- 1</button>
+      <button v-show="mostrar">test</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  name: 'Contador',
+  data() { // Agregado el bloque data, propiedades reactivas
     return {
       numero: this.inicio,
-      titulo: 'Contador',
-    };
+      titulo: 'Contador'
+    }
   },
-  methods: {
+
+  methods: { // Agregado el bloque methods, otra opcion de option API 
     obtenerCuadrado() {
-      console.log('Entro a obtener cuadrado');
-      return this.numero * this.numero;
+      console.log('Calculando el cuadrado de', this.numero);
+      return this.numero * this.numero; // cuando usamos propiedad reactiva, usamos this.
     },
     obtenerCubo() {
-      return this.numero * this.numero * this.numero;
-    },
-    incremetar(){
-      console.log(this.tit);
+      console.log('Calculando el cubo de', this.numero);
+      return this.numero * this.numero * this.numero; // cuando usamos propiedad reactiva, usamos this.
+    }, 
+    incrementar() {
+      console.log(this.title);
       this.numero++;
     },
-    decrementar(){
-      console.log(this.tit)
+    decrementar() {
       this.numero--;
-    },
+    }
   },
-  computed: {
+
+  computed: { // Agregado el bloque computed
     calculaCuadrado() {
-      console.log('Entro a propiedad computada');
-      return this.numero * this.numero;
+      console.log('entro a propiedad computada');
+      return this.numero * this.numero; // cuando usamos propiedad reactiva, usamos this.
     },
-    calcularCubo() {
-      console.log('Entro a propiedad computada');
-      return this.numero * this.numero;
-    },
-  },
-  //varibales q puede instanciar dsd el componente padre
-  /*props: ["tit", "inicio", "mostrar"],*/
+    calculaCubo() {
+      console.log('entro a propiedad computada del cubo');
+      return this.numero * this.numero * this.numero; // cuando usamos propiedad reactiva, usamos this.
+    }
+  }, 
+  //props: ['title', 'inicio', 'mostrar'] declaracion basica de props
   props: {
-    tit: String,
+    title: {
+      type: String,
+      required: true
+    },
     inicio: {
       type: Number,
       default: 99,
-      validator(value){
-        return value > 10;
-      },
+      validator: function(value) {
+        return value >= 0 && value <= 100; // el valor debe ser mayor o igual a 0 y menor o igual a 1000
+      }
     },
-    mostrar: Boolean
-  },
-  /*String, Number, Boolean, Array, Object, Date, Function, BigInt*/
-};
+    mostrar: {
+      type: Boolean,
+      default: true
+    }
+    // otra forma de declarar props con validaciones
+    // tipos de datos: String, Number, Boolean, Array, Object, Date, Function, Symbol, BigInt
+  }
+}
 </script>
 
 <style></style>
